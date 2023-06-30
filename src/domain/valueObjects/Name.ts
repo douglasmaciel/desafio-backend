@@ -3,7 +3,7 @@ export class Name {
 
   constructor(value: string) {
     if (value.length < 1 || value.length > 256)
-      throw new TypeError("invalid Name");
+      throw new TypeError("Name invalid");
     this.#value = value;
   }
 
