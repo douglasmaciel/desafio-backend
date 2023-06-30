@@ -6,8 +6,8 @@
   "scripts": {
     "build": "tsc",
     "start": "ts-node src/index.ts",
-    "test": "vtest",
-    "test:coverage": "vtest --coverage"
+    "test": "vitest",
+    "test:coverage": "vitest --coverage"
   },
   "devDependencies": {
     "@types/node": "^20.3.2",
