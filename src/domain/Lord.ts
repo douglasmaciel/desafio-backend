@@ -1,19 +1,19 @@
 import { UUID } from "crypto";
+import { Name } from "./valueObjects/Name";
 
 export class Lord {
   #id: UUID;
-  #name: string;
+  #name: Name;
   #seasons: string[];
 
   constructor(id: UUID, name: string, seasons: string[]) {
     this.#id = id;
-    this.#name = name;
+    this.#name = new Name(name);
     this.#seasons = seasons;
     this.validate();
   }
 
   private validate() {
-    if (this.#name === "") throw new Error("empty Lord name");
     if (this.#seasons.length === 0) throw new Error("empty Lord seasons");
   }
 
@@ -22,7 +22,7 @@ export class Lord {
   }
 
   get name() {
-    return this.#name;
+    return this.#name.value;
   }
 
   get seasons() {

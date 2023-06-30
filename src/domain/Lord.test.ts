@@ -10,10 +10,10 @@ test("Deve criar um Lord contendo a lista de temporadas que ele aparece", () => 
   expect(lord.seasons).toEqual(["temporada 1", "temporada 2"]);
 });
 
-test("Deve lançar exceção caso seja fornecido um nome vazio", () => {
+test("Deve lançar exceção caso seja fornecido um nome inválido", () => {
   expect(
     () => new Lord(randomUUID(), "", ["temporada 1", "temporada 2"])
-  ).toThrow("empty Lord name");
+  ).toThrow("invalid Name");
 });
 
 test("Deve lançar exceção caso seja fornecido uma lista vazia de temporadas", () => {

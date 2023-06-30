@@ -36,7 +36,7 @@ test("Deve criar uma casa sem Lord", () => {
   expect(house.lord).toBeUndefined();
 });
 
-test("Deve lançar uma exceção caso seja fornecido um nome vazio", () => {
+test("Deve lançar uma exceção caso seja fornecido um nome inválido", () => {
   expect(() => {
     const house = new House(
       randomUUID(),
@@ -44,7 +44,7 @@ test("Deve lançar uma exceção caso seja fornecido um nome vazio", () => {
       "data about time of house foundation",
       lord
     );
-  }).toThrow("empty House name");
+  }).toThrow("invalid Name");
 });
 
 test("Deve lançar uma exceção caso seja fornecido uma data de fundação vazia", () => {
