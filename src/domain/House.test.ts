@@ -44,7 +44,7 @@ test("Deve lançar uma exceção caso seja fornecido um nome inválido", () => {
       "data about time of house foundation",
       lord
     );
-  }).toThrow("Name invalid");
+  }).toThrow("Name has invalid length");
   expect(() => {
     const house = new House(
       randomUUID(),
@@ -52,11 +52,11 @@ test("Deve lançar uma exceção caso seja fornecido um nome inválido", () => {
       "data about time of house foundation",
       lord
     );
-  }).toThrow("Name invalid");
+  }).toThrow("Name has invalid length");
 });
 
 test("Deve lançar uma exceção caso seja fornecido uma data de fundação vazia", () => {
   expect(() => {
     const house = new House(randomUUID(), "house name", "", lord);
-  }).toThrow("empty House foundation date");
+  }).toThrow("HouseFoundationDate has invalid length");
 });

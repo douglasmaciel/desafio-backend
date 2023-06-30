@@ -1,24 +1,19 @@
 import { UUID } from "crypto";
 import type { Lord } from "./Lord";
 import { Name } from "./valueObjects/Name";
+import { HouseFoundationDate } from "./valueObjects/HouseFoundationDate";
 
 export class House {
   #id: UUID;
   #name: Name;
-  #foundationDate: string;
+  #foundationDate: HouseFoundationDate;
   #lord: Lord | undefined;
 
   constructor(id: UUID, name: string, foundationDate: string, lord?: Lord) {
     this.#id = id;
     this.#name = new Name(name);
-    this.#foundationDate = foundationDate;
+    this.#foundationDate = new HouseFoundationDate(foundationDate);
     this.#lord = lord;
-    this.validate();
-  }
-
-  private validate() {
-    if (this.#foundationDate === "")
-      throw new Error("empty House foundation date");
   }
 
   get id() {
@@ -30,7 +25,7 @@ export class House {
   }
 
   get foundationDate() {
-    return this.#foundationDate;
+    return this.#foundationDate.value;
   }
 
   get lord() {

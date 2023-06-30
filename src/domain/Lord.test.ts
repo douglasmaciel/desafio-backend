@@ -13,11 +13,11 @@ test("Deve criar um Lord contendo a lista de temporadas que ele aparece", () => 
 test("Deve lançar exceção caso seja fornecido um nome inválido", () => {
   expect(
     () => new Lord(randomUUID(), "", ["temporada 1", "temporada 2"])
-  ).toThrow("Name invalid");
+  ).toThrow("Name has invalid length");
   expect(
     () =>
       new Lord(randomUUID(), "a".repeat(257), ["temporada 1", "temporada 2"])
-  ).toThrow("Name invalid");
+  ).toThrow("Name has invalid length");
 });
 
 test("Deve lançar exceção caso seja fornecido uma lista vazia de temporadas", () => {
@@ -31,4 +31,14 @@ test("Deve lançar exceção caso seja fornecido uma lista com dados duplicados"
     () =>
       new Lord(randomUUID(), "character name", ["temporada 1", "temporada 1"])
   ).toThrow("SeasonList has duplicate data");
+});
+
+test("Deve lançar exceção caso seja fornecido uma lista com dados inválidos", () => {
+  expect(
+    () => new Lord(randomUUID(), "character name", ["", "temporada 1"])
+  ).toThrow("SeasonList has data with invalid length");
+  expect(
+    () =>
+      new Lord(randomUUID(), "character name", ["a".repeat(257), "temporada 1"])
+  ).toThrow("SeasonList has data with invalid length");
 });
