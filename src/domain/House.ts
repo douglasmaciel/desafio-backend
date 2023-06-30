@@ -1,12 +1,13 @@
+import { UUID } from "crypto";
 import type { Lord } from "./Lord";
 
 export class House {
-  #id: string;
+  #id: UUID;
   #name: string;
   #foundationDate: string;
   #lord: Lord | undefined;
 
-  constructor(id: string, name: string, foundationDate: string, lord?: Lord) {
+  constructor(id: UUID, name: string, foundationDate: string, lord?: Lord) {
     this.#id = id;
     this.#name = name;
     this.#foundationDate = foundationDate;
@@ -15,7 +16,6 @@ export class House {
   }
 
   private validate() {
-    if (this.#id === "") throw new Error("empty House id");
     if (this.#name === "") throw new Error("empty House name");
     if (this.#foundationDate === "")
       throw new Error("empty House foundation date");

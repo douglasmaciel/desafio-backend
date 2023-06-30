@@ -1,9 +1,11 @@
+import { UUID } from "crypto";
+
 export class Lord {
-  #id: string;
+  #id: UUID;
   #name: string;
   #seasons: string[];
 
-  constructor(id: string, name: string, seasons: string[]) {
+  constructor(id: UUID, name: string, seasons: string[]) {
     this.#id = id;
     this.#name = name;
     this.#seasons = seasons;
@@ -11,7 +13,6 @@ export class Lord {
   }
 
   private validate() {
-    if (this.#id === "") throw new Error("empty Lord id");
     if (this.#name === "") throw new Error("empty Lord name");
     if (this.#seasons.length === 0) throw new Error("empty Lord seasons");
   }
