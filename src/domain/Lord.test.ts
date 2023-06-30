@@ -14,6 +14,10 @@ test("Deve lançar exceção caso seja fornecido um nome inválido", () => {
   expect(
     () => new Lord(randomUUID(), "", ["temporada 1", "temporada 2"])
   ).toThrow("invalid Name");
+  expect(
+    () =>
+      new Lord(randomUUID(), "a".repeat(257), ["temporada 1", "temporada 2"])
+  ).toThrow("invalid Name");
 });
 
 test("Deve lançar exceção caso seja fornecido uma lista vazia de temporadas", () => {
