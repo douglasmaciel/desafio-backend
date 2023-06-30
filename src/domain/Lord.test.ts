@@ -22,6 +22,13 @@ test("Deve lançar exceção caso seja fornecido um nome inválido", () => {
 
 test("Deve lançar exceção caso seja fornecido uma lista vazia de temporadas", () => {
   expect(() => new Lord(randomUUID(), "character name", [])).toThrow(
-    "empty Lord seasons"
+    "SeasonList is empty"
   );
+});
+
+test("Deve lançar exceção caso seja fornecido uma lista com dados duplicados", () => {
+  expect(
+    () =>
+      new Lord(randomUUID(), "character name", ["temporada 1", "temporada 1"])
+  ).toThrow("SeasonList has duplicate data");
 });
