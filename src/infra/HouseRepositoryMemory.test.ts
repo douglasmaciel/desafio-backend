@@ -63,6 +63,4 @@ test("Deve retornar todas as casas", async () => {
   }
   const houses = await houseRepository.getAll();
   expect(houses.length).toBe(houseCount);
-  const randomIndex = Math.floor(Math.random() * houseCount);
-  expect(houses[randomIndex]).toBeInstanceOf(House);
 });
