@@ -4,6 +4,7 @@ import { Name } from "../valueObjects/Name";
 
 export interface HouseRepository {
   nextId(): Promise<UUID>;
+  getAll(): Promise<House[]>;
   getById(id: UUID): Promise<House | undefined>;
   getByName(name: Name): Promise<House | undefined>;
   save(house: House): Promise<void>;

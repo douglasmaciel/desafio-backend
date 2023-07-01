@@ -53,3 +53,16 @@ test("Deve retornar undefined caso não exista registro da casa", async () => {
     houseRepository.getByName(unmatchedHouseName)
   ).resolves.toBeUndefined();
 });
+
+test("Deve retornar todas as casas", async () => {
+  const houseCount = 5;
+  for (let i = 0; i < houseCount; i++) {
+    const houseId = await houseRepository.nextId();
+    const house = new House(houseId, `id-${i}`, `founded in ${i}`);
+    await houseRepository.save(house);
+  }
+  const houses = await houseRepository.getAll();
+  expect(houses.length).toBe(houseCount);
+  const randomIndex = Math.floor(Math.random() * houseCount);
+  expect(houses[randomIndex]).toBeInstanceOf(House);
+});
