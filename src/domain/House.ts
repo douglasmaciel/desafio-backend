@@ -1,5 +1,5 @@
 import { UUID } from "crypto";
-import type { Lord } from "./Lord";
+import type { Lord } from "./valueObjects/Lord";
 import { Name } from "./valueObjects/Name";
 import { HouseFoundationDate } from "./valueObjects/HouseFoundationDate";
 

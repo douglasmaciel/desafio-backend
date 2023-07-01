@@ -3,7 +3,7 @@ import { Lord } from "./Lord";
 
 test("Deve criar um Lord contendo a lista de temporadas que ele aparece", () => {
   const lord = new Lord("character name", ["temporada 1", "temporada 2"]);
-  expect(lord.id).toBe("character name");
+  expect(lord.name).toBe("character name");
   expect(lord.seasons).toEqual(["temporada 1", "temporada 2"]);
 });
 

@@ -1,5 +1,5 @@
 import { test, expect, beforeEach } from "vitest";
-import { Lord } from "./Lord";
+import { Lord } from "./valueObjects/Lord";
 import { House } from "./House";
 import { randomUUID } from "crypto";
 
