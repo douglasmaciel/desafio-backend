@@ -1,24 +1,17 @@
-import { UUID } from "crypto";
 import { Name } from "./valueObjects/Name";
 import { SeasonList } from "./valueObjects/SeasonList";
 
 export class Lord {
-  #id: UUID;
-  #name: Name;
+  #id: Name;
   #seasons: SeasonList;
 
-  constructor(id: UUID, name: string, seasons: string[]) {
-    this.#id = id;
-    this.#name = new Name(name);
+  constructor(id: string, seasons: string[]) {
+    this.#id = new Name(id);
     this.#seasons = new SeasonList(seasons);
   }
 
   get id() {
-    return this.#id;
-  }
-
-  get name() {
-    return this.#name.value;
+    return this.#id.value;
   }
 
   get seasons() {

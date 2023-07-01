@@ -6,7 +6,7 @@ import { randomUUID } from "crypto";
 let lord: Lord;
 
 beforeEach(() => {
-  lord = new Lord(randomUUID(), "lord name", ["temporada 3"]);
+  lord = new Lord("lord name", ["temporada 3"]);
 });
 
 test("Deve criar uma casa", () => {
