@@ -4,6 +4,21 @@ import { Name } from "./valueObjects/Name";
 import { HouseFoundationDate } from "./valueObjects/HouseFoundationDate";
 import { Region } from "./valueObjects/Region";
 
+export type housesOutDTO = {
+  id: UUID;
+  attributes: {
+    name: string;
+    region: string;
+    foundationDate: string;
+    currentLord:
+      | {
+          name: string;
+          seasons: string[];
+        }
+      | "";
+  };
+};
+
 export class House {
   #id: UUID;
   #name: Name;
@@ -43,5 +58,23 @@ export class House {
 
   get lord() {
     return this.#lord;
+  }
+
+  toOutDTO(): housesOutDTO {
+    const currentLord = this.lord
+      ? {
+          name: this.lord.name,
+          seasons: this.lord.seasons,
+        }
+      : "";
+    return {
+      id: this.#id,
+      attributes: {
+        name: this.name,
+        region: this.region,
+        foundationDate: this.foundationDate,
+        currentLord,
+      },
+    };
   }
 }
