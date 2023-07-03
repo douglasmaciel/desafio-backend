@@ -4,7 +4,7 @@ import { Name } from "./valueObjects/Name";
 import { HouseFoundationDate } from "./valueObjects/HouseFoundationDate";
 import { Region } from "./valueObjects/Region";
 
-export type housesOutDTO = {
+export type houseOutDTO = {
   id: UUID;
   attributes: {
     name: string;
@@ -60,7 +60,7 @@ export class House {
     return this.#lord;
   }
 
-  toOutDTO(): housesOutDTO {
+  toOutDTO(): houseOutDTO {
     const currentLord = this.lord
       ? {
           name: this.lord.name,
