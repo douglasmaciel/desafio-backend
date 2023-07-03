@@ -2,16 +2,25 @@ import { UUID } from "crypto";
 import type { Lord } from "./valueObjects/Lord";
 import { Name } from "./valueObjects/Name";
 import { HouseFoundationDate } from "./valueObjects/HouseFoundationDate";
+import { Region } from "./valueObjects/Region";
 
 export class House {
   #id: UUID;
   #name: Name;
+  #region: Region;
   #foundationDate: HouseFoundationDate;
   #lord: Lord | undefined;
 
-  constructor(id: UUID, name: string, foundationDate: string, lord?: Lord) {
+  constructor(
+    id: UUID,
+    name: string,
+    region: string,
+    foundationDate: string,
+    lord?: Lord
+  ) {
     this.#id = id;
     this.#name = new Name(name);
+    this.#region = new Region(region);
     this.#foundationDate = new HouseFoundationDate(foundationDate);
     this.#lord = lord;
   }
@@ -22,6 +31,10 @@ export class House {
 
   get name() {
     return this.#name.value;
+  }
+
+  get region() {
+    return this.#region.value;
   }
 
   get foundationDate() {
