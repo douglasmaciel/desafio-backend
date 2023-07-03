@@ -21,11 +21,16 @@ houseExpressRouter.get("/houses", async (req: Request, res: Response) => {
   res.json(output);
 });
 
-houseExpressRouter.get("/houses/:id", async (req: Request, res: Response) => {
+houseExpressRouter.get("/houses/query", async (req: Request, res: Response) => {
   let output: { data: houseOutDTO } | { error: any };
+  if (typeof req.query.name !== "string") {
+    res.sendStatus(400);
+    return;
+  }
   try {
-    const id = new HouseId(req.params.id);
-    const house = await houseRepository.getById(id);
+    const qName = req.query.name ?? "";
+    const name = new Name(qName);
+    const house = await houseRepository.getByName(name);
     if (house === undefined) {
       res.sendStatus(404);
       return;
@@ -39,11 +44,11 @@ houseExpressRouter.get("/houses/:id", async (req: Request, res: Response) => {
   res.json(output);
 });
 
-houseExpressRouter.get("/houses/:name", async (req: Request, res: Response) => {
+houseExpressRouter.get("/houses/:id", async (req: Request, res: Response) => {
   let output: { data: houseOutDTO } | { error: any };
   try {
-    const name = new Name(req.params.name);
-    const house = await houseRepository.getByName(name);
+    const id = new HouseId(req.params.id);
+    const house = await houseRepository.getById(id);
     if (house === undefined) {
       res.sendStatus(404);
       return;
