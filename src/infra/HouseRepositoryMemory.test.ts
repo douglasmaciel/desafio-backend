@@ -3,6 +3,7 @@ import { HouseRepository } from "../domain/repositories/HouseRepository";
 import { House } from "../domain/House";
 import { Name } from "../domain/valueObjects/Name";
 import { HouseRepositoryMemory } from "./HouseRepositoryMemory";
+import { HouseId } from "../domain/valueObjects/HouseId";
 
 let houseRepository: HouseRepository;
 
@@ -11,7 +12,7 @@ beforeEach(() => {
 });
 
 test("Deve retornar uma casa a partir do id", async () => {
-  const houseId = "009b670e-d58a-4a8b-ab3e-3b90c14d1272";
+  const houseId = new HouseId("009b670e-d58a-4a8b-ab3e-3b90c14d1272");
   const house = new House(
     houseId,
     "house name",
@@ -20,7 +21,7 @@ test("Deve retornar uma casa a partir do id", async () => {
   );
   await houseRepository.save(house);
   const recoveredHouse = await houseRepository.getById(houseId);
-  expect(recoveredHouse?.id).toBe(houseId);
+  expect(recoveredHouse?.id).toBe(houseId.value);
 });
 
 test("Deve retornar uma casa a partir do nome", async () => {
@@ -51,7 +52,7 @@ test("Deve armazenar uma casa", async () => {
 });
 
 test("Deve remover uma casa", async () => {
-  const houseId = "009b670e-d58a-4a8b-ab3e-3b90c14d1272";
+  const houseId = new HouseId("009b670e-d58a-4a8b-ab3e-3b90c14d1272");
   const house = new House(
     houseId,
     "house name",
@@ -60,13 +61,13 @@ test("Deve remover uma casa", async () => {
   );
   await houseRepository.save(house);
   const recoveredHouse = await houseRepository.getById(houseId);
-  expect(recoveredHouse?.id).toBe(houseId);
+  expect(recoveredHouse?.id).toBe(houseId.value);
   await houseRepository.remove(house);
   expect(houseRepository.getById(houseId)).resolves.toBeUndefined();
 });
 
 test("Deve retornar undefined caso não exista registro da casa", async () => {
-  const unmatchedHouseId = "009b670e-d58a-4a8b-ab3e-3b90c14d1272";
+  const unmatchedHouseId = new HouseId("009b670e-d58a-4a8b-ab3e-3b90c14d1272");
   const unmatchedHouseName = new Name("house name");
   expect(houseRepository.getById(unmatchedHouseId)).resolves.toBeUndefined();
   expect(
