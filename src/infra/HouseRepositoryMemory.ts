@@ -29,7 +29,12 @@ export class HouseRepositoryMemory implements HouseRepository {
   }
 
   async save(house: House): Promise<void> {
-    this.#storage.push([true, house]);
+    const houseList = this.#storage.filter((item) => item[1].id === house.id);
+    if (houseList.length === 0) this.#storage.push([true, house]);
+    else {
+      houseList[0][0] = true;
+      houseList[0][1] = house;
+    }
   }
 
   async remove(house: House): Promise<void> {

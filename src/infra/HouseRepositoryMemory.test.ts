@@ -47,6 +47,10 @@ test("Deve armazenar uma casa", async () => {
   await houseRepository.save(house);
   const recoveredHouse = await houseRepository.getById(houseId);
   expect(recoveredHouse?.id).toBe(house.id);
+  expect(recoveredHouse?.name).toBe("house name");
+  expect(recoveredHouse?.region).toBe("house region");
+  expect(recoveredHouse?.foundationDate).toBe("foundation date");
+  expect(recoveredHouse?.lord).toBeUndefined();
 });
 
 test("Deve remover uma casa", async () => {
@@ -87,4 +91,31 @@ test("Deve retornar todas as casas", async () => {
   }
   const houses = await houseRepository.getAll();
   expect(houses.length).toBe(houseCount);
+});
+
+test("Deve atualizar uma casa", async () => {
+  const houseId = await houseRepository.nextId();
+  const house = new House(
+    houseId,
+    "house name",
+    "house region",
+    "foundation date"
+  );
+  await houseRepository.save(house);
+  const recoveredHouse = await houseRepository.getById(houseId);
+  expect(recoveredHouse?.id).toBe(house.id);
+  expect(recoveredHouse?.name).toBe("house name");
+  expect(recoveredHouse?.region).toBe("house region");
+  expect(recoveredHouse?.foundationDate).toBe("foundation date");
+  expect(recoveredHouse?.lord).toBeUndefined();
+  house.name = "new name";
+  house.region = "new region";
+  house.foundationDate = "new foundation";
+  await houseRepository.save(house);
+  const updatedHouse = await houseRepository.getById(houseId);
+  expect(updatedHouse?.id).toBe(house.id);
+  expect(updatedHouse?.name).toBe("new name");
+  expect(updatedHouse?.region).toBe("new region");
+  expect(updatedHouse?.foundationDate).toBe("new foundation");
+  expect(updatedHouse?.lord).toBeUndefined();
 });
