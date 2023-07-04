@@ -1,4 +1,3 @@
-import { test, expect, beforeEach } from "vitest";
 import { HouseRepository } from "../domain/repositories/HouseRepository";
 import { House } from "../domain/House";
 import { HouseRepositoryMemory } from "./HouseRepositoryMemory";

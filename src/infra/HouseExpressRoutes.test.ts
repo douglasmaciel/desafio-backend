@@ -1,9 +1,9 @@
 import "dotenv/config";
-import { test, expect, beforeEach } from "vitest";
 
 const port = process.env.PORT || 3005;
 const baseURL = `http://localhost:${port}`;
 const isToSkip = process.env.E2E === undefined;
+const testSkipIf = (condition: boolean) => (condition ? test.skip : test);
 
 let headers: Headers;
 beforeEach(() => {
@@ -13,7 +13,7 @@ beforeEach(() => {
   });
 });
 
-test.skipIf(isToSkip)(
+testSkipIf(isToSkip)(
   "[GET /api/houses] Deve retornar uma lista de casas ou uma lista vazia",
   async () => {
     const res = await fetch(`${baseURL}/api/houses`, {
@@ -21,11 +21,11 @@ test.skipIf(isToSkip)(
       headers: headers,
     });
     const payload = await res.json();
-    expect(payload.data).toBeTypeOf(typeof []);
+    expect(Array.isArray(payload.data)).toBe(true);
   }
 );
 
-test.skipIf(isToSkip)(
+testSkipIf(isToSkip)(
   "[GET /api/houses/:id] Deve cadastrar uma casa e buscar pelo id",
   async () => {
     const body = JSON.stringify({
@@ -73,7 +73,7 @@ test.skipIf(isToSkip)(
   }
 );
 
-test.skipIf(isToSkip)(
+testSkipIf(isToSkip)(
   "[GET /api/houses/query?name=] Deve cadastrar uma casa e buscar pelo nome",
   async () => {
     const body = JSON.stringify({
@@ -121,7 +121,7 @@ test.skipIf(isToSkip)(
   }
 );
 
-test.skipIf(isToSkip)(
+testSkipIf(isToSkip)(
   "[POST /api/houses] Deve cadastrar uma casa e retornar o que foi cadastrado",
   async () => {
     const body = JSON.stringify({
@@ -151,7 +151,7 @@ test.skipIf(isToSkip)(
   }
 );
 
-test.skipIf(isToSkip)(
+testSkipIf(isToSkip)(
   "[PUT /api/houses/:id] Deve cadastrar e, depois, atualizar o nome de uma casa e retornar o que foi cadastrado",
   async () => {
     const body = JSON.stringify({
@@ -203,7 +203,7 @@ test.skipIf(isToSkip)(
   }
 );
 
-test.skipIf(isToSkip)(
+testSkipIf(isToSkip)(
   "[DELETE /api/houses/:id] Deve cadastrar e, depois, remover uma casa e retornar o que foi removido",
   async () => {
     const body = JSON.stringify({

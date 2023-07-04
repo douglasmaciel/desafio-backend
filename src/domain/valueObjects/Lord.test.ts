@@ -1,4 +1,3 @@
-import { test, expect } from "vitest";
 import { Lord } from "./Lord";
 
 test("Deve criar um Lord contendo a lista de temporadas que ele aparece", () => {
