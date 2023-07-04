@@ -1,4 +1,4 @@
-import type { Lord } from "./valueObjects/Lord";
+import { Lord } from "./valueObjects/Lord";
 import { Name } from "./valueObjects/Name";
 import { HouseFoundationDate } from "./valueObjects/HouseFoundationDate";
 import { Region } from "./valueObjects/Region";
@@ -31,13 +31,13 @@ export class House {
     name: string,
     region: string,
     foundationDate: string,
-    lord?: Lord
+    lord?: { name: string; seasons: string[] }
   ) {
     this.#id = new HouseId(id);
     this.#name = new Name(name);
     this.#region = new Region(region);
     this.#foundationDate = new HouseFoundationDate(foundationDate);
-    this.#lord = lord;
+    this.#lord = lord ? new Lord(lord?.name, lord?.seasons) : undefined;
   }
 
   get id() {

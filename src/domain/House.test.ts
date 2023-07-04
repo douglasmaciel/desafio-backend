@@ -3,10 +3,10 @@ import { Lord } from "./valueObjects/Lord";
 import { House } from "./House";
 import { randomUUID } from "crypto";
 
-let lord: Lord;
+let lord: { name: string; seasons: string[] };
 
 beforeEach(() => {
-  lord = new Lord("lord name", ["temporada 3"]);
+  lord = { name: "lord name", seasons: ["temporada 3"] };
 });
 
 test("Deve criar uma casa", () => {
