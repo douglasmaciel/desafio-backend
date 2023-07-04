@@ -43,9 +43,6 @@ export class House {
   get id() {
     return this.#id.value;
   }
-  set id(value: string) {
-    this.#id = new HouseId(value);
-  }
 
   get name() {
     return this.#name.value;
