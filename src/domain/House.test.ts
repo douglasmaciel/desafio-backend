@@ -94,3 +94,30 @@ test("Deve lançar uma exceção caso seja fornecido um id inválido", () => {
     new House("id-inválido", "house name", "house region", "", lord);
   }).toThrow("HouseId is invalid");
 });
+
+test("Deve criar uma casa e atualizar seus dados", () => {
+  const id = randomUUID();
+  const house = new House(
+    id,
+    "house name",
+    "house region",
+    "data about time of house foundation",
+    lord
+  );
+  expect(house.id).toBe(id);
+  expect(house.name).toBe("house name");
+  expect(house.region).toBe("house region");
+  expect(house.foundationDate).toBe("data about time of house foundation");
+  expect(house.lord?.name).toBe(lord.name);
+  expect(house.lord?.seasons).toEqual(lord.seasons);
+  house.name = "new name";
+  house.region = "new region";
+  house.foundationDate = "new foundation date";
+  house.lord = { name: "new lord", seasons: ["new season"] };
+  expect(house.id).toBe(id);
+  expect(house.name).toBe("new name");
+  expect(house.region).toBe("new region");
+  expect(house.foundationDate).toBe("new foundation date");
+  expect(house.lord?.name).toBe("new lord");
+  expect(house.lord?.seasons).toEqual(["new season"]);
+});

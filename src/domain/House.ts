@@ -37,27 +37,42 @@ export class House {
     this.#name = new Name(name);
     this.#region = new Region(region);
     this.#foundationDate = new HouseFoundationDate(foundationDate);
-    this.#lord = lord ? new Lord(lord?.name, lord?.seasons) : undefined;
+    this.#lord = !!lord ? new Lord(lord?.name, lord?.seasons) : undefined;
   }
 
   get id() {
     return this.#id.value;
   }
+  set id(value: string) {
+    this.#id = new HouseId(value);
+  }
 
   get name() {
     return this.#name.value;
+  }
+  set name(value: string) {
+    this.#name = new Name(value);
   }
 
   get region() {
     return this.#region.value;
   }
+  set region(value: string) {
+    this.#region = new Region(value);
+  }
 
   get foundationDate() {
     return this.#foundationDate.value;
   }
+  set foundationDate(value: string) {
+    this.#foundationDate = new HouseFoundationDate(value);
+  }
 
-  get lord() {
+  get lord(): Lord | undefined {
     return this.#lord;
+  }
+  set lord(value: { name: string; seasons: string[] }) {
+    this.#lord = new Lord(value.name, value.seasons);
   }
 
   toOutDTO(): houseOutDTO {
