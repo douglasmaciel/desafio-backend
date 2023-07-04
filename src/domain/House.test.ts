@@ -22,7 +22,8 @@ test("Deve criar uma casa", () => {
   expect(house.name).toBe("house name");
   expect(house.region).toBe("house region");
   expect(house.foundationDate).toBe("data about time of house foundation");
-  expect(house.lord).toEqual(lord);
+  expect(house.lord?.name).toBe(lord.name);
+  expect(house.lord?.seasons).toEqual(lord.seasons);
 });
 
 test("Deve criar uma casa sem Lord", () => {

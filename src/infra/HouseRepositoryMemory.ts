@@ -7,26 +7,24 @@ import { Name } from "../domain/valueObjects/Name";
 export class HouseRepositoryMemory implements HouseRepository {
   #storage = new Array<[boolean, House]>();
 
-  async nextId(): Promise<HouseId> {
-    return new HouseId(randomUUID());
+  async nextId(): Promise<string> {
+    return new HouseId(randomUUID()).value;
   }
 
   async getAll(): Promise<House[]> {
     return this.#storage.map((item) => item[1]);
   }
 
-  async getById(id: HouseId): Promise<House | undefined> {
+  async getById(id: string): Promise<House | undefined> {
     const houseList = this.#storage.filter(
-      (item) => item[0] === true && item[1].id === id.value
+      (item) => item[0] === true && item[1].id === id
     );
     if (houseList.length === 0) return undefined;
     return houseList[0][1];
   }
 
-  async getByName(name: Name): Promise<House | undefined> {
-    const houseList = this.#storage.filter(
-      (item) => item[1].name === name.value
-    );
+  async getByName(name: string): Promise<House | undefined> {
+    const houseList = this.#storage.filter((item) => item[1].name === name);
     if (houseList.length === 0) return undefined;
     return houseList[0][1];
   }
