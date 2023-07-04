@@ -1,4 +1,5 @@
 import { House } from "../House";
+import { HouseId } from "../valueObjects/HouseId";
 import { Name } from "../valueObjects/Name";
 
 export interface HouseRepository {
