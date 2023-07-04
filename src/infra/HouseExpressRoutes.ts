@@ -69,7 +69,7 @@ houseExpressRouter.get("/houses/:id", async (req: Request, res: Response) => {
 });
 
 houseExpressRouter.post("/houses", async (req: Request, res: Response) => {
-  let output: { data: houseOutDTO | {} } | { error: any };
+  let output: { data: houseOutDTO } | { error: any };
   try {
     const { name, region, foundationDate, lord } = req.body as houseInputDTO;
     if (
@@ -84,7 +84,8 @@ houseExpressRouter.post("/houses", async (req: Request, res: Response) => {
     const house = new House(houseId, name, region, foundationDate, lord);
     await houseRepository.save(house);
     const savedHouse = await houseRepository.getById(houseId);
-    output = { data: savedHouse?.toOutDTO() ?? {} };
+    output = { error: "Could not recover stored house" };
+    if (savedHouse) output = { data: savedHouse.toOutDTO() };
   } catch (e) {
     output = { error: e };
     if (e instanceof Error) output = { error: e.message };
@@ -116,7 +117,7 @@ houseExpressRouter.delete(
 );
 
 houseExpressRouter.put("/houses/:id", async (req: Request, res: Response) => {
-  let output: { data: houseOutDTO | {} } | { error: any };
+  let output: { data: houseOutDTO } | { error: any };
   try {
     const { name, region, foundationDate, lord } = req.body as houseInputDTO;
     const id = req.params.id;
@@ -131,7 +132,8 @@ houseExpressRouter.put("/houses/:id", async (req: Request, res: Response) => {
     if (lord) house.lord = lord;
     await houseRepository.save(house);
     const savedHouse = await houseRepository.getById(id);
-    output = { data: savedHouse?.toOutDTO() ?? {} };
+    output = { error: "Could not recover updated house" };
+    if (savedHouse) output = { data: savedHouse.toOutDTO() };
   } catch (e) {
     output = { error: e };
     if (e instanceof Error) output = { error: e.message };
