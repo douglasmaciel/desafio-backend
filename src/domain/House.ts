@@ -27,13 +27,13 @@ export class House {
   #lord: Lord | undefined;
 
   constructor(
-    id: HouseId,
+    id: string,
     name: string,
     region: string,
     foundationDate: string,
     lord?: Lord
   ) {
-    this.#id = id;
+    this.#id = new HouseId(id);
     this.#name = new Name(name);
     this.#region = new Region(region);
     this.#foundationDate = new HouseFoundationDate(foundationDate);

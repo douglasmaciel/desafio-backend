@@ -12,7 +12,7 @@ beforeEach(() => {
 });
 
 test("Deve retornar uma casa a partir do id", async () => {
-  const houseId = new HouseId("009b670e-d58a-4a8b-ab3e-3b90c14d1272");
+  const houseId = "009b670e-d58a-4a8b-ab3e-3b90c14d1272";
   const house = new House(
     houseId,
     "house name",
@@ -20,12 +20,12 @@ test("Deve retornar uma casa a partir do id", async () => {
     "foundation date"
   );
   await houseRepository.save(house);
-  const recoveredHouse = await houseRepository.getById(houseId);
-  expect(recoveredHouse?.id).toBe(houseId.value);
+  const recoveredHouse = await houseRepository.getById(new HouseId(houseId));
+  expect(recoveredHouse?.id).toBe(houseId);
 });
 
 test("Deve retornar uma casa a partir do nome", async () => {
-  const houseId = await houseRepository.nextId();
+  const houseId = (await houseRepository.nextId()).value;
   const houseName = new Name("house name");
   const house = new House(
     houseId,
@@ -39,7 +39,7 @@ test("Deve retornar uma casa a partir do nome", async () => {
 });
 
 test("Deve armazenar uma casa", async () => {
-  const houseId = await houseRepository.nextId();
+  const houseId = (await houseRepository.nextId()).value;
   const house = new House(
     houseId,
     "house name",
@@ -47,12 +47,12 @@ test("Deve armazenar uma casa", async () => {
     "foundation date"
   );
   await houseRepository.save(house);
-  const recoveredHouse = await houseRepository.getById(houseId);
+  const recoveredHouse = await houseRepository.getById(new HouseId(houseId));
   expect(recoveredHouse?.id).toBe(house.id);
 });
 
 test("Deve remover uma casa", async () => {
-  const houseId = new HouseId("009b670e-d58a-4a8b-ab3e-3b90c14d1272");
+  const houseId = "009b670e-d58a-4a8b-ab3e-3b90c14d1272";
   const house = new House(
     houseId,
     "house name",
@@ -60,16 +60,20 @@ test("Deve remover uma casa", async () => {
     "foundation date"
   );
   await houseRepository.save(house);
-  const recoveredHouse = await houseRepository.getById(houseId);
-  expect(recoveredHouse?.id).toBe(houseId.value);
+  const recoveredHouse = await houseRepository.getById(new HouseId(houseId));
+  expect(recoveredHouse?.id).toBe(houseId);
   await houseRepository.remove(house);
-  expect(houseRepository.getById(houseId)).resolves.toBeUndefined();
+  expect(
+    houseRepository.getById(new HouseId(houseId))
+  ).resolves.toBeUndefined();
 });
 
 test("Deve retornar undefined caso não exista registro da casa", async () => {
-  const unmatchedHouseId = new HouseId("009b670e-d58a-4a8b-ab3e-3b90c14d1272");
+  const unmatchedHouseId = "009b670e-d58a-4a8b-ab3e-3b90c14d1272";
   const unmatchedHouseName = new Name("house name");
-  expect(houseRepository.getById(unmatchedHouseId)).resolves.toBeUndefined();
+  expect(
+    houseRepository.getById(new HouseId(unmatchedHouseId))
+  ).resolves.toBeUndefined();
   expect(
     houseRepository.getByName(unmatchedHouseName)
   ).resolves.toBeUndefined();
@@ -78,7 +82,7 @@ test("Deve retornar undefined caso não exista registro da casa", async () => {
 test("Deve retornar todas as casas", async () => {
   const houseCount = 5;
   for (let i = 0; i < houseCount; i++) {
-    const houseId = await houseRepository.nextId();
+    const houseId = (await houseRepository.nextId()).value;
     const house = new House(
       houseId,
       `name-${i}`,
