@@ -2,7 +2,6 @@ import { randomUUID } from "crypto";
 import { House } from "../domain/House";
 import { HouseRepository } from "../domain/repositories/HouseRepository";
 import { HouseId } from "../domain/valueObjects/HouseId";
-import { Name } from "../domain/valueObjects/Name";
 
 export class HouseRepositoryMemory implements HouseRepository {
   #storage = new Array<[boolean, House]>();
@@ -12,7 +11,7 @@ export class HouseRepositoryMemory implements HouseRepository {
   }
 
   async getAll(): Promise<House[]> {
-    return this.#storage.map((item) => item[1]);
+    return this.#storage.filter((item) => item[0]).map((item) => item[1]);
   }
 
   async getById(id: string): Promise<House | undefined> {

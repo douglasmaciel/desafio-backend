@@ -5,7 +5,7 @@ import { Region } from "./valueObjects/Region";
 import { HouseId } from "./valueObjects/HouseId";
 
 export type houseOutDTO = {
-  id: HouseId;
+  id: string;
   attributes: {
     name: string;
     region: string;
@@ -68,7 +68,7 @@ export class House {
         }
       : "";
     return {
-      id: this.#id,
+      id: this.id,
       attributes: {
         name: this.name,
         region: this.region,
