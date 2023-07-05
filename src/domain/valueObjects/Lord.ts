@@ -1,6 +1,11 @@
 import { Name } from "./Name";
 import { SeasonList } from "./SeasonList";
 
+export type lordOutDTO = {
+  name: string;
+  seasons: string[];
+};
+
 export class Lord {
   #name: Name;
   #seasons: SeasonList;
@@ -16,5 +21,9 @@ export class Lord {
 
   get seasons() {
     return this.#seasons.value;
+  }
+
+  toOutDTO(): lordOutDTO {
+    return { name: this.#name.value, seasons: this.#seasons.value };
   }
 }

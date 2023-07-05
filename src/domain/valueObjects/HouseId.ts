@@ -1,11 +1,10 @@
-import { validate, version } from "uuid";
+import { validate } from "uuid";
 
 export class HouseId {
   #value: string;
 
   constructor(value: string) {
-    if (!validate(value) || version(value) !== 4)
-      throw new TypeError("HouseId is invalid");
+    if (!validate(value)) throw new TypeError("HouseId is invalid");
     this.#value = value;
   }
 

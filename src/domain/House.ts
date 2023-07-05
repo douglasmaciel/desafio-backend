@@ -1,4 +1,4 @@
-import { Lord } from "./valueObjects/Lord";
+import { Lord, lordOutDTO } from "./valueObjects/Lord";
 import { Name } from "./valueObjects/Name";
 import { HouseFoundationDate } from "./valueObjects/HouseFoundationDate";
 import { Region } from "./valueObjects/Region";
@@ -10,12 +10,7 @@ export type houseOutDTO = {
     name: string;
     region: string;
     foundationDate: string;
-    currentLord:
-      | {
-          name: string;
-          seasons: string[];
-        }
-      | "";
+    currentLord: lordOutDTO | "";
   };
 };
 
@@ -73,12 +68,7 @@ export class House {
   }
 
   toOutDTO(): houseOutDTO {
-    const currentLord = this.lord
-      ? {
-          name: this.lord.name,
-          seasons: this.lord.seasons,
-        }
-      : "";
+    const currentLord = this.lord ? this.lord.toOutDTO() : "";
     return {
       id: this.id,
       attributes: {
