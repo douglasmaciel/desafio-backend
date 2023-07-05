@@ -16,4 +16,6 @@ Pronto!
 
 O servidor já deverá estar escutando na porta definida no arquivo **.env** ou, por padrão, na porta **3000**.
 
+Caso os dados do banco de dados não estejam presentes no env, o sistema usará um repositório em memória como fallback.
+
 Qualquer dúvida, só olhar o teste das rotas do express em **./src/infra/HouseExpressRoutes.test.ts**

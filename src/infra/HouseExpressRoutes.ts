@@ -1,10 +1,22 @@
+import "dotenv/config";
 import express, { Request, Response } from "express";
 import { HouseRepositoryMemory } from "./HouseRepositoryMemory";
 import { House, houseOutDTO } from "../domain/House";
+import { HouseRepositoryMysql } from "./HouseRepositoryMariadb";
+import { HouseRepository } from "../domain/repositories/HouseRepository";
 
+const [host, user, password, database] = [
+  process.env.DBHOST,
+  process.env.DBUSER,
+  process.env.DBPASS,
+  process.env.DB,
+];
 const houseExpressRouter = express.Router();
 houseExpressRouter.use(express.json());
-const houseRepository = new HouseRepositoryMemory();
+let houseRepository: HouseRepository = new HouseRepositoryMemory();
+if (host && user && password && database)
+  houseRepository = new HouseRepositoryMysql(host, user, password, database);
+
 type houseInputDTO = {
   name: string;
   region: string;
