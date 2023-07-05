@@ -1,0 +1,1 @@
+testpassword compose exec db bash -c mysql -p testdb < bootstrap.sql

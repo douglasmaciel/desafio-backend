@@ -1,0 +1,15 @@
+version: '3.1'
+
+services:
+  db:
+    image: mariadb
+    restart: always
+    volumes:
+      - type: bind
+        source: ./bootstrap.sql
+        target: /bootstrap.sql
+    ports:
+      - 3306:3306
+    environment:
+      - MARIADB_ROOT_PASSWORD=testpassword
+      - MARIADB_DATABASE=testdb

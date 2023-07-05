@@ -9,7 +9,8 @@
     "dev": "ts-node src/index.ts",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "test:e2e": "E2E=true jest"
+    "test:e2e": "E2E=true jest",
+    "test:e2e-mariadb": "docker compose exec db bash -c 'mariadb -ptestpassword testdb < bootstrap.sql' ; E2E=true jest"
   },
   "devDependencies": {
     "@types/node": "^20.3.2",
@@ -33,6 +34,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jest": "^29.6.0",
+    "mariadb": "^3.2.0",
     "ts-jest": "^29.1.1",
     "uuid": "^9.0.0"
   }

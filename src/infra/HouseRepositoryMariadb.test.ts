@@ -1,11 +1,11 @@
 import { HouseRepository } from "../domain/repositories/HouseRepository";
 import { House } from "../domain/House";
-import { HouseRepositoryMemory } from "./HouseRepositoryMemory";
+import { HouseRepositoryMysql } from "./HouseRepositoryMariadb";
 
 let houseRepository: HouseRepository;
 
-beforeEach(() => {
-  houseRepository = new HouseRepositoryMemory();
+beforeEach(async () => {
+  houseRepository = new HouseRepositoryMysql();
 });
 afterEach(async () => {
   for (const house of await houseRepository.getAll()) {
