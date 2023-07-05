@@ -2,6 +2,8 @@ import { HouseRepository } from "../domain/repositories/HouseRepository";
 import { House } from "../domain/House";
 import { HouseRepositoryMysql } from "./HouseRepositoryMariadb";
 
+const isToSkip = process.env.DB === undefined;
+const testSkipIf = (condition: boolean) => (condition ? test.skip : test);
 let houseRepository: HouseRepository;
 
 beforeEach(async () => {
@@ -18,7 +20,7 @@ afterEach(async () => {
   }
 });
 
-test("Deve retornar uma casa a partir do id", async () => {
+testSkipIf(isToSkip)("Deve retornar uma casa a partir do id", async () => {
   const houseId = await houseRepository.nextId();
   const house = new House(
     houseId,
@@ -32,7 +34,7 @@ test("Deve retornar uma casa a partir do id", async () => {
   expect(recoveredHouse?.id).toBe(houseId);
 });
 
-test("Deve retornar uma casa a partir do nome", async () => {
+testSkipIf(isToSkip)("Deve retornar uma casa a partir do nome", async () => {
   const houseId = await houseRepository.nextId();
   const houseName = "house name";
   const house = new House(
@@ -46,7 +48,7 @@ test("Deve retornar uma casa a partir do nome", async () => {
   expect(recoveredHouse?.name).toBe(houseName);
 });
 
-test("Deve armazenar uma casa", async () => {
+testSkipIf(isToSkip)("Deve armazenar uma casa", async () => {
   const houseId = await houseRepository.nextId();
   const house = new House(
     houseId,
@@ -63,7 +65,7 @@ test("Deve armazenar uma casa", async () => {
   expect(recoveredHouse?.lord).toBeUndefined();
 });
 
-test("Deve remover uma casa", async () => {
+testSkipIf(isToSkip)("Deve remover uma casa", async () => {
   const houseId = await houseRepository.nextId();
   const house = new House(
     houseId,
@@ -78,16 +80,19 @@ test("Deve remover uma casa", async () => {
   expect(houseRepository.getById(houseId)).resolves.toBeUndefined();
 });
 
-test("Deve retornar undefined caso não exista registro da casa", async () => {
-  const unmatchedHouseId = await houseRepository.nextId();
-  const unmatchedHouseName = "house name";
-  expect(houseRepository.getById(unmatchedHouseId)).resolves.toBeUndefined();
-  expect(
-    houseRepository.getByName(unmatchedHouseName)
-  ).resolves.toBeUndefined();
-});
+testSkipIf(isToSkip)(
+  "Deve retornar undefined caso não exista registro da casa",
+  async () => {
+    const unmatchedHouseId = await houseRepository.nextId();
+    const unmatchedHouseName = "house name";
+    expect(houseRepository.getById(unmatchedHouseId)).resolves.toBeUndefined();
+    expect(
+      houseRepository.getByName(unmatchedHouseName)
+    ).resolves.toBeUndefined();
+  }
+);
 
-test("Deve retornar todas as casas", async () => {
+testSkipIf(isToSkip)("Deve retornar todas as casas", async () => {
   const houseCount = 5;
   for (let i = 0; i < houseCount; i++) {
     const houseId = await houseRepository.nextId();
@@ -103,7 +108,7 @@ test("Deve retornar todas as casas", async () => {
   expect(houses.length).toBe(houseCount);
 });
 
-test("Deve atualizar uma casa", async () => {
+testSkipIf(isToSkip)("Deve atualizar uma casa", async () => {
   const houseId = await houseRepository.nextId();
   const house = new House(
     houseId,
