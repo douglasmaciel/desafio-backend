@@ -5,7 +5,12 @@ import { HouseRepositoryMysql } from "./HouseRepositoryMariadb";
 let houseRepository: HouseRepository;
 
 beforeEach(async () => {
-  houseRepository = new HouseRepositoryMysql();
+  houseRepository = new HouseRepositoryMysql(
+    "localhost",
+    "root",
+    "testpassword",
+    "testdb"
+  );
 });
 afterEach(async () => {
   for (const house of await houseRepository.getAll()) {

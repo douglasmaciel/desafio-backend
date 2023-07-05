@@ -12,15 +12,14 @@ type dbDTO = {
 };
 
 export class HouseRepositoryMysql implements HouseRepository {
-  #storage = new Array<[boolean, House]>();
   #pool: mariadb.Pool;
 
-  constructor() {
+  constructor(host: string, user: string, password: string, database: string) {
     this.#pool = mariadb.createPool({
-      host: "localhost",
-      user: "root",
-      password: "testpassword",
-      database: "testdb",
+      host,
+      user,
+      password,
+      database,
       connectionLimit: 5,
     });
   }
