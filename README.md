@@ -8,6 +8,7 @@ Executar na raiz do projeto:
 
 ```
   docker compose up -d
+  docker compose exec db bash -c "mariadb -ptestpassword testdb < bootstrap.sql"
   yarn dev
 ```
 
